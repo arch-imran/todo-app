@@ -25,8 +25,7 @@ exit_button = sg.Button("Exit")
 
 window = sg.Window("My to do list app",
                    layout=[[clock_lebel],
-                           [label],
-                           [input_box,add_button],
+                           [label,input_box,add_button],
                            [list_box,edit_button,complete_button],
                            [exit_button]],
                    font = ('Helvetica',10))
