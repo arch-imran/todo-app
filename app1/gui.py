@@ -7,9 +7,13 @@ clock_lebel=sg.Text('',key='clock')
 
 label = sg.Text("Type in a todo")
 input_box = sg.InputText(tooltip="Enter a todo",key='todo')
-add_button = sg.Button("Add")
+add_button = sg.Button(size=2,image_source='add.png',
+                       mouseover_colors="LightBlue2",
+                       key="Add",tooltip="Add a todo")
 
-complete_button = sg.Button("Complete")
+complete_button = sg.Button(size=3,image_source='complete.png',
+                            mouseover_colors='LightBLue2',
+                            key='Complete',tooltip='complete the todo')
 
 #display the todo in a list box
 
@@ -29,8 +33,11 @@ window = sg.Window("My to do list app",
 
 while True:
     event , values = window.read(timeout=100)
-    now = time.strftime("%Y-%m-%d %H:%M:%S")
-    window["clock"].update(value=now)
+
+    if event == sg.WINDOW_CLOSED or event=='Exit':
+        break
+
+    window["clock"].update(value=time.strftime("%Y-%m-%d %H:%M:%S"))
 
     if event =='Add':
         todos = functions.get_todo()
@@ -64,7 +71,10 @@ while True:
 
     elif event=="existing_todo":
         #on clicking the todo it should appear in text add
-        window['todo'].update(value=values['existing_todo'][0])
+        try:
+            window['todo'].update(value=values['existing_todo'][0])
+        except IndexError:
+            continue
 
     elif event == 'Complete':
         try:
@@ -84,10 +94,7 @@ while True:
             sg.popup("plz select an item first",font=('Helvetica',15))
             continue
 
-    elif event=='Exit':
-        break
-    elif event == sg.WINDOW_CLOSED:
-        break
+
 
 
 
